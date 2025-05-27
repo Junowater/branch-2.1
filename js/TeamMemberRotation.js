@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rotationChartBody = document.getElementById('rotationChartBody');
 
     // Corrected key names – make sure these match the saving keys exactly
-    const centerData = JSON.parse(localStorage.getItem('centerSectionSchedule') || '{}');
+    const centerData = JSON.parse(localStorage.getItem('centerSection_schedule') || '{}');
     const frontData = JSON.parse(localStorage.getItem('frontLineSchedule') || '{}');
     const rearData = JSON.parse(localStorage.getItem('rearLineSchedule') || '{}');
 
