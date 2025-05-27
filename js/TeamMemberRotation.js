@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const memberName = member.name;
             const row = document.createElement('tr');
             const nameCell = document.createElement('td');
-            nameCell.textContent = memberName;
+            nameCell.textContent = member.name;
             row.appendChild(nameCell);
 
             allQuarters.forEach(quarter => {
