@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Corrected key names – make sure these match the saving keys exactly
     const centerData = JSON.parse(localStorage.getItem('centerSection_schedule') || '{}');
-    const frontData = JSON.parse(localStorage.getItem('frontLineSchedule') || '{}');
-    const rearData = JSON.parse(localStorage.getItem('rearLineSchedule') || '{}');
+    const frontData = JSON.parse(localStorage.getItem('frontLine_schedule') || '{}');
+    const rearData = JSON.parse(localStorage.getItem('rearLine_schedule') || '{}');
 
     const allQuarters = ["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4", "Quarter 5"];
     const teamMembersSet = new Set();
