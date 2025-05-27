@@ -29,7 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     teamMembers.forEach(member => {
         const row = document.createElement('tr');
         const nameCell = document.createElement('td');
-        nameCell.textContent = member;
+        nameCell.textContent = typeof member === 'object' && member !== null
+            ? member.name || '[unnamed]'
+            : member;
         row.appendChild(nameCell);
 
         allQuarters.forEach(quarter => {
