@@ -29,7 +29,57 @@ document.addEventListener('DOMContentLoaded', () => {
     extractMembers(frontData);
     extractMembers(rearData);
 
-    const teamMembers = Array.from(teamMembersSet);
+    
+    const teamMembers = Array.from(teamMembersSet).map(name => {
+        const activity = (schedule) => {
+            return allQuarters.reduce((count, quarter) => {
+                const qData = schedule[quarter];
+                if (!qData) return count;
+                for (const station in qData) {
+                    const members = qData[station];
+                    if (Array.isArray(members)) {
+                        for (const m of members) {
+                            const mName = typeof m === 'object' && m !== null ? m.name : m;
+                            if (mName === name) return count + 1;
+                        }
+                    }
+                }
+                return count;
+            }, 0);
+        };
+
+        const firstQuarter = allQuarters.findIndex(quarter => {
+            const check = schedule => {
+                const qData = schedule[quarter];
+                if (!qData) return false;
+                return Object.values(qData).some(members =>
+                    Array.isArray(members) && members.some(m =>
+                        (typeof m === 'object' ? m.name : m) === name
+                    )
+                );
+            };
+            return check(centerData) || check(frontData) || check(rearData);
+        });
+
+        return {
+            name,
+            activityCount: activity(centerData) + activity(frontData) + activity(rearData),
+            firstQuarter: firstQuarter === -1 ? 99 : firstQuarter
+        };
+    });
+
+    const sortSelect = document.getElementById("sortMode");
+    if (sortSelect) {
+        const mode = sortSelect.value;
+        if (mode === "assignments") {
+            teamMembers.sort((a, b) => b.activityCount - a.activityCount);
+        } else if (mode === "firstQuarter") {
+            teamMembers.sort((a, b) => a.firstQuarter - b.firstQuarter);
+        } else {
+            teamMembers.sort((a, b) => a.name.localeCompare(b.name));
+        }
+    }
+    
 
     teamMembers.forEach(memberName => {
         const row = document.createElement('tr');
