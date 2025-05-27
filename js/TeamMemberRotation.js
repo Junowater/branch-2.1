@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     teamMembers.forEach(memberName => {
+        const memberName = member.name;
         const row = document.createElement('tr');
         const nameCell = document.createElement('td');
         nameCell.textContent = memberName;
